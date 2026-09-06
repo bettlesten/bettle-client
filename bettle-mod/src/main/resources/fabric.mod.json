@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "bettleclient",
+  "version": "${version}",
+  "name": "Bettle Client HUD",
+  "description": "Crimson-accented in-game HUD overlay for Bettle Client: FPS counter, CPS counter, ping, coordinates and a ToggleSprint helper.",
+  "authors": [
+    "Bettle Client"
+  ],
+  "contact": {
+    "homepage": "https://github.com/bettleclient",
+    "sources": "https://github.com/bettleclient"
+  },
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "net.bettleclient.mod.BettleHudOverlay"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "fabric-api": "*",
+    "minecraft": ">=1.20.1",
+    "java": ">=17"
+  }
+}

@@ -1,0 +1,646 @@
+/* ==========================================================================
+   Bettle Client - "Bettle Red" crimson glassmorphism theme
+   --------------------------------------------------------------------------
+   Palette
+     #FF0033  primary crimson
+     #0D0D0D  base background
+     #1A0006  secondary container
+     #FF3355  glow / hover highlight
+   ========================================================================== */
+
+* {
+    -bettle-primary:        #FF0033;
+    -bettle-primary-dim:    #C4001F;
+    -bettle-base:           #0D0D0D;
+    -bettle-container:      #1A0006;
+    -bettle-glow:           #FF3355;
+    -bettle-text:           #F4EEF0;
+    -bettle-text-muted:     #9C8A8F;
+    -bettle-hairline:       rgba(255, 0, 51, 0.22);
+    -bettle-hairline-soft:  rgba(255, 51, 85, 0.12);
+    -bettle-glass:          rgba(26, 0, 6, 0.62);
+    -bettle-glass-strong:   rgba(26, 0, 6, 0.86);
+}
+
+.root {
+    -fx-background-color: transparent;
+    -fx-font-family: "Inter", "Segoe UI", "SF Pro Display", "Ubuntu", sans-serif;
+    -fx-font-size: 13px;
+    -fx-accent: -bettle-primary;
+    -fx-focus-color: -bettle-glow;
+    -fx-faint-focus-color: transparent;
+}
+
+/* ==========================================================================
+   Window shell
+   ========================================================================== */
+
+.app-window {
+    -fx-background-color:
+        linear-gradient(from 0% 0% to 100% 100%,
+            #140004 0%,
+            -bettle-base 42%,
+            #120003 100%);
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-border-width: 1px;
+    -fx-border-color: -bettle-hairline;
+}
+
+.content-stack {
+    -fx-background-color: transparent;
+}
+
+/* ==========================================================================
+   Title bar
+   ========================================================================== */
+
+.title-bar {
+    -fx-background-color:
+        linear-gradient(to right,
+            rgba(255, 0, 51, 0.16) 0%,
+            rgba(26, 0, 6, 0.55) 46%,
+            rgba(13, 13, 13, 0.30) 100%);
+    -fx-background-radius: 16px 16px 0 0;
+    -fx-border-color: transparent transparent -bettle-hairline transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-cursor: default;
+}
+
+.title-brand {
+    -fx-text-fill: -bettle-text;
+    -fx-font-size: 15px;
+    -fx-font-weight: 800;
+    -fx-padding: 0 0 0 4px;
+}
+
+.title-brand-accent {
+    -fx-text-fill: -bettle-primary;
+    -fx-font-size: 15px;
+    -fx-font-weight: 800;
+    -fx-padding: 0 0 0 -6px;
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 51, 0.75), 12, 0.2, 0, 0);
+}
+
+.title-version {
+    -fx-text-fill: -bettle-text-muted;
+    -fx-font-size: 10.5px;
+    -fx-padding: 2px 7px 2px 7px;
+    -fx-background-color: rgba(255, 0, 51, 0.10);
+    -fx-background-radius: 20px;
+    -fx-border-color: -bettle-hairline-soft;
+    -fx-border-radius: 20px;
+    -fx-border-width: 1px;
+}
+
+.logo-ring {
+    -fx-fill: transparent;
+    -fx-stroke: -bettle-primary;
+    -fx-stroke-width: 1.6px;
+}
+
+.logo-core {
+    -fx-fill: -bettle-primary;
+}
+
+.window-button,
+.window-button-close {
+    -fx-background-color: transparent;
+    -fx-text-fill: -bettle-text-muted;
+    -fx-font-size: 13px;
+    -fx-min-width: 34px;
+    -fx-min-height: 30px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+}
+
+.window-button:hover {
+    -fx-background-color: rgba(255, 51, 85, 0.16);
+    -fx-text-fill: -bettle-text;
+}
+
+.window-button-close:hover {
+    -fx-background-color: -bettle-primary;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 51, 0.8), 14, 0.3, 0, 0);
+}
+
+/* ==========================================================================
+   Sidebar
+   ========================================================================== */
+
+.sidebar {
+    -fx-background-color:
+        linear-gradient(to bottom,
+            rgba(26, 0, 6, 0.72) 0%,
+            rgba(13, 13, 13, 0.42) 100%);
+    -fx-border-color: transparent -bettle-hairline-soft transparent transparent;
+    -fx-border-width: 0 1px 0 0;
+    -fx-background-radius: 0 0 0 16px;
+}
+
+.sidebar-header {
+    -fx-text-fill: -bettle-text-muted;
+    -fx-font-size: 10px;
+    -fx-font-weight: 700;
+    -fx-letter-spacing: 1.6px;
+}
+
+.sidebar-footer {
+    -fx-text-fill: rgba(156, 138, 143, 0.55);
+    -fx-font-size: 10.5px;
+    -fx-padding: 0 0 0 8px;
+    -fx-line-spacing: 2px;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -bettle-text-muted;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-padding: 11px 14px 11px 16px;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-border-width: 0 0 0 2px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 10px;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(255, 51, 85, 0.10);
+    -fx-text-fill: -bettle-text;
+}
+
+.nav-button-active {
+    -fx-background-color:
+        linear-gradient(to right,
+            rgba(255, 0, 51, 0.24) 0%,
+            rgba(255, 0, 51, 0.04) 100%);
+    -fx-text-fill: -bettle-text;
+    -fx-border-color: -bettle-primary transparent transparent transparent;
+    -fx-border-width: 0 0 0 2px;
+}
+
+/* ==========================================================================
+   Glass cards
+   ========================================================================== */
+
+.glass-card {
+    -fx-background-color:
+        linear-gradient(from 0% 0% to 100% 100%,
+            rgba(255, 0, 51, 0.055) 0%,
+            -bettle-glass 55%,
+            rgba(13, 13, 13, 0.72) 100%);
+    -fx-background-radius: 14px;
+    -fx-border-radius: 14px;
+    -fx-border-width: 1px;
+    -fx-border-color: -bettle-hairline;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.55), 22, 0.05, 0, 6);
+}
+
+.profile-card {
+    -fx-border-color: rgba(255, 0, 51, 0.30);
+}
+
+.card-heading {
+    -fx-text-fill: -bettle-primary;
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+    -fx-letter-spacing: 1.8px;
+}
+
+.field-label {
+    -fx-text-fill: -bettle-text-muted;
+    -fx-font-size: 11.5px;
+    -fx-font-weight: 600;
+}
+
+.status-line {
+    -fx-text-fill: -bettle-text-muted;
+    -fx-font-size: 11.5px;
+}
+
+/* ==========================================================================
+   Profile
+   ========================================================================== */
+
+.avatar-holder {
+    -fx-background-color: rgba(255, 0, 51, 0.08);
+    -fx-background-radius: 12px;
+    -fx-border-color: -bettle-primary;
+    -fx-border-width: 1.4px;
+    -fx-border-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 51, 0.45), 16, 0.15, 0, 0);
+}
+
+.avatar-placeholder {
+    -fx-fill: rgba(255, 0, 51, 0.10);
+    -fx-arc-width: 10;
+    -fx-arc-height: 10;
+    -fx-stroke: rgba(255, 51, 85, 0.25);
+    -fx-stroke-width: 1;
+}
+
+.profile-name {
+    -fx-text-fill: -bettle-text;
+    -fx-font-size: 19px;
+    -fx-font-weight: 800;
+}
+
+.profile-status {
+    -fx-text-fill: -bettle-text-muted;
+    -fx-font-size: 11.5px;
+}
+
+.status-dot-online {
+    -fx-fill: #2FE07A;
+    -fx-effect: dropshadow(gaussian, rgba(47, 224, 122, 0.85), 10, 0.4, 0, 0);
+}
+
+.status-dot-offline {
+    -fx-fill: #6B5257;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.play-button {
+    -fx-background-color:
+        linear-gradient(to right, -bettle-primary 0%, #FF1F47 55%, -bettle-glow 100%);
+    -fx-text-fill: white;
+    -fx-font-size: 19px;
+    -fx-font-weight: 900;
+    -fx-letter-spacing: 4px;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+.play-button:hover {
+    -fx-background-color:
+        linear-gradient(to right, #FF1233 0%, -bettle-glow 60%, #FF5C77 100%);
+}
+
+.play-button:pressed {
+    -fx-background-color:
+        linear-gradient(to right, -bettle-primary-dim 0%, -bettle-primary 100%);
+}
+
+.play-button:disabled {
+    -fx-background-color: rgba(255, 0, 51, 0.16);
+    -fx-text-fill: rgba(244, 238, 240, 0.35);
+    -fx-opacity: 1;
+    -fx-effect: none;
+}
+
+.play-button-small {
+    -fx-background-color: linear-gradient(to right, -bettle-primary 0%, -bettle-glow 100%);
+    -fx-text-fill: white;
+    -fx-font-size: 11.5px;
+    -fx-font-weight: 800;
+    -fx-letter-spacing: 1px;
+    -fx-padding: 10px 18px 10px 18px;
+    -fx-background-radius: 9px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 51, 0.55), 14, 0.2, 0, 0);
+}
+
+.play-button-small:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 51, 85, 0.85), 20, 0.35, 0, 0);
+}
+
+.secondary-button {
+    -fx-background-color: rgba(255, 0, 51, 0.13);
+    -fx-text-fill: -bettle-primary;
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+    -fx-letter-spacing: 1.1px;
+    -fx-padding: 11px 18px 11px 18px;
+    -fx-background-radius: 9px;
+    -fx-border-color: -bettle-hairline;
+    -fx-border-radius: 9px;
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: rgba(255, 51, 85, 0.24);
+    -fx-text-fill: #FFD3DC;
+    -fx-border-color: -bettle-glow;
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 51, 0.45), 14, 0.2, 0, 0);
+}
+
+.ghost-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -bettle-text-muted;
+    -fx-font-size: 11.5px;
+    -fx-font-weight: 600;
+    -fx-padding: 8px 14px 8px 14px;
+    -fx-background-radius: 8px;
+    -fx-border-color: -bettle-hairline-soft;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+.ghost-button:hover {
+    -fx-background-color: rgba(255, 51, 85, 0.12);
+    -fx-text-fill: -bettle-text;
+    -fx-border-color: -bettle-hairline;
+}
+
+/* ==========================================================================
+   Text fields
+   ========================================================================== */
+
+.bettle-field {
+    -fx-background-color: rgba(13, 13, 13, 0.72);
+    -fx-text-fill: -bettle-text;
+    -fx-prompt-text-fill: rgba(156, 138, 143, 0.55);
+    -fx-font-size: 12.5px;
+    -fx-padding: 10px 13px 10px 13px;
+    -fx-background-radius: 9px;
+    -fx-border-color: -bettle-hairline-soft;
+    -fx-border-radius: 9px;
+    -fx-border-width: 1px;
+    -fx-highlight-fill: rgba(255, 0, 51, 0.35);
+}
+
+.bettle-field:focused {
+    -fx-border-color: -bettle-primary;
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 51, 0.35), 12, 0.15, 0, 0);
+}
+
+/* ==========================================================================
+   Checkbox
+   ========================================================================== */
+
+.bettle-check {
+    -fx-text-fill: -bettle-text-muted;
+    -fx-font-size: 12px;
+}
+
+.bettle-check .box {
+    -fx-background-color: rgba(13, 13, 13, 0.8);
+    -fx-background-radius: 5px;
+    -fx-border-color: -bettle-hairline;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+    -fx-padding: 3px;
+}
+
+.bettle-check:hover .box {
+    -fx-border-color: -bettle-glow;
+}
+
+.bettle-check:selected .box {
+    -fx-background-color: -bettle-primary;
+    -fx-border-color: -bettle-primary;
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 51, 0.6), 10, 0.2, 0, 0);
+}
+
+.bettle-check:selected .mark {
+    -fx-background-color: white;
+}
+
+/* ==========================================================================
+   Version dropdown
+   ========================================================================== */
+
+.version-combo {
+    -fx-background-color: rgba(13, 13, 13, 0.75);
+    -fx-background-radius: 9px;
+    -fx-border-color: -bettle-hairline;
+    -fx-border-radius: 9px;
+    -fx-border-width: 1px;
+    -fx-padding: 2px 4px 2px 4px;
+    -fx-cursor: hand;
+}
+
+.version-combo:hover {
+    -fx-border-color: -bettle-glow;
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 51, 0.30), 12, 0.1, 0, 0);
+}
+
+.version-combo .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -bettle-text;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-padding: 8px 6px 8px 8px;
+}
+
+.version-combo .arrow-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 8px 0 4px;
+}
+
+.version-combo .arrow {
+    -fx-background-color: -bettle-primary;
+    -fx-shape: "M 0 0 L 8 0 L 4 5 Z";
+    -fx-padding: 3px 4px 3px 4px;
+}
+
+.version-combo-popup .list-view,
+.combo-box-popup .list-view {
+    -fx-background-color: -bettle-glass-strong;
+    -fx-background-radius: 10px;
+    -fx-border-color: -bettle-hairline;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 24, 0.1, 0, 8);
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -bettle-text;
+    -fx-padding: 9px 14px 9px 14px;
+    -fx-font-size: 12.5px;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover {
+    -fx-background-color: rgba(255, 0, 51, 0.22);
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected {
+    -fx-background-color: rgba(255, 0, 51, 0.34);
+    -fx-text-fill: white;
+}
+
+.version-cell-snapshot {
+    -fx-text-fill: -bettle-text-muted;
+    -fx-font-style: italic;
+}
+
+/* ==========================================================================
+   RAM slider
+   ========================================================================== */
+
+.ram-slider .track {
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-background-radius: 4px;
+    -fx-pref-height: 6px;
+}
+
+.ram-slider .thumb {
+    -fx-background-color: -bettle-primary;
+    -fx-background-radius: 20px;
+    -fx-pref-width: 17px;
+    -fx-pref-height: 17px;
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 51, 0.75), 12, 0.3, 0, 0);
+}
+
+.ram-slider .thumb:hover {
+    -fx-background-color: -bettle-glow;
+    -fx-effect: dropshadow(gaussian, rgba(255, 51, 85, 0.95), 18, 0.4, 0, 0);
+}
+
+.ram-slider .axis,
+.ram-slider .axis-tick-mark {
+    -fx-tick-label-fill: -bettle-text-muted;
+    -fx-stroke: rgba(255, 0, 51, 0.25);
+}
+
+/* ==========================================================================
+   Progress bar
+   ========================================================================== */
+
+.bettle-progress {
+    -fx-background-radius: 6px;
+}
+
+.bettle-progress > .track {
+    -fx-background-color: rgba(255, 255, 255, 0.06);
+    -fx-background-radius: 6px;
+    -fx-background-insets: 0;
+}
+
+.bettle-progress > .bar {
+    -fx-background-color:
+        linear-gradient(to right, -bettle-primary 0%, -bettle-glow 100%);
+    -fx-background-radius: 6px;
+    -fx-background-insets: 0;
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 51, 0.65), 10, 0.25, 0, 0);
+}
+
+/* ==========================================================================
+   Console
+   ========================================================================== */
+
+.console {
+    -fx-background-color: transparent;
+    -fx-font-family: "JetBrains Mono", "Cascadia Mono", "Consolas", "Menlo", monospace;
+    -fx-font-size: 11.5px;
+    -fx-text-fill: #C9BCC0;
+    -fx-highlight-fill: rgba(255, 0, 51, 0.35);
+}
+
+.console .content {
+    -fx-background-color: rgba(8, 8, 8, 0.78);
+    -fx-background-radius: 10px;
+    -fx-padding: 12px;
+}
+
+.console:focused .content {
+    -fx-background-color: rgba(8, 8, 8, 0.86);
+}
+
+.console .scroll-pane,
+.console .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ==========================================================================
+   Scroll bars and panes
+   ========================================================================== */
+
+.bettle-scroll,
+.bettle-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-padding: 2px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(255, 0, 51, 0.32);
+    -fx-background-radius: 8px;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: rgba(255, 51, 85, 0.6);
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button,
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
+
+/* ==========================================================================
+   Device-code dialog
+   ========================================================================== */
+
+.device-dialog {
+    -fx-background-color:
+        linear-gradient(from 0% 0% to 100% 100%,
+            rgba(255, 0, 51, 0.10) 0%,
+            -bettle-glass-strong 60%,
+            rgba(13, 13, 13, 0.94) 100%);
+    -fx-border-color: -bettle-primary;
+    -fx-border-width: 1.2px;
+}
+
+.device-instructions {
+    -fx-text-fill: -bettle-text-muted;
+    -fx-font-size: 12px;
+    -fx-text-alignment: center;
+    -fx-line-spacing: 3px;
+}
+
+.device-code {
+    -fx-text-fill: white;
+    -fx-font-family: "JetBrains Mono", "Consolas", "Menlo", monospace;
+    -fx-font-size: 34px;
+    -fx-font-weight: 900;
+    -fx-letter-spacing: 6px;
+    -fx-padding: 12px 26px 12px 26px;
+    -fx-background-color: rgba(255, 0, 51, 0.14);
+    -fx-background-radius: 12px;
+    -fx-border-color: -bettle-primary;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 51, 0.55), 20, 0.2, 0, 0);
+}
+
+.device-url {
+    -fx-text-fill: -bettle-glow;
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-underline: true;
+}
+
+/* ==========================================================================
+   Tooltip
+   ========================================================================== */
+
+.tooltip {
+    -fx-background-color: -bettle-glass-strong;
+    -fx-text-fill: -bettle-text;
+    -fx-font-size: 11.5px;
+    -fx-background-radius: 8px;
+    -fx-border-color: -bettle-hairline;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-padding: 7px 11px 7px 11px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 14, 0.1, 0, 4);
+}

@@ -1,0 +1,6 @@
+{
+  "category.bettleclient.main": "Bettle Client",
+  "key.bettleclient.toggle_sprint": "Toggle Sprint",
+  "key.bettleclient.toggle_hud": "Toggle HUD",
+  "key.bettleclient.cycle_position": "Cycle HUD Position"
+}
