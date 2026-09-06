@@ -1,0 +1,148 @@
+# ============================================================================
+#  Builds the Bettle Client Windows installer on a GitHub-hosted Windows
+#  runner, so no local Windows machine is needed.
+#
+#  Trigger it either way:
+#    * Actions tab -> "Build Windows Installer" -> Run workflow
+#    * push a tag:  git tag v1.0.0 && git push origin v1.0.0
+#
+#  A tagged run also publishes a GitHub Release with the .exe attached, which
+#  is the link you hand to other people: one file, no Java required.
+# ============================================================================
+
+name: Build Windows Installer
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to stamp on the installer"
+        required: false
+        default: "1.0.0"
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    name: Build BettleClient.exe
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Work out the version
+        id: version
+        shell: pwsh
+        run: |
+          if ($env:GITHUB_REF -like "refs/tags/v*") {
+            $version = $env:GITHUB_REF -replace "^refs/tags/v", ""
+          } elseif ("${{ github.event.inputs.version }}") {
+            $version = "${{ github.event.inputs.version }}"
+          } else {
+            $version = "1.0.0"
+          }
+          # jpackage requires a strict major[.minor[.patch]] numeric version.
+          if ($version -notmatch '^\d+(\.\d+){0,2}$') {
+            Write-Host "::warning::'$version' is not a jpackage-safe version; using 1.0.0"
+            $version = "1.0.0"
+          }
+          "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          Write-Host "Building version $version"
+
+      # Liberica *Full* JDK ships the JavaFX jmods, which lets jpackage link
+      # JavaFX into the runtime image instead of bundling it in the jar.
+      - name: Set up Liberica Full JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: liberica
+          java-version: "21"
+          java-package: jdk+fx
+          cache: maven
+
+      - name: Confirm JavaFX jmods are present
+        shell: pwsh
+        run: |
+          $jmod = Join-Path $env:JAVA_HOME "jmods\javafx.controls.jmod"
+          if (Test-Path $jmod) {
+            Write-Host "OK: $jmod"
+          } else {
+            Write-Host "::warning::No JavaFX jmods in this JDK; JavaFX will be bundled in the jar instead."
+          }
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10"
+
+      # NSIS builds the installer .exe from the jpackage app-image.
+      # No WiX and no MSI anywhere in this pipeline.
+      - name: Install NSIS
+        shell: pwsh
+        run: |
+          if (Get-Command makensis -ErrorAction SilentlyContinue) {
+            Write-Host "NSIS is already on PATH."
+          } else {
+            $nsisDir = "${env:ProgramFiles(x86)}\NSIS"
+            if (Test-Path (Join-Path $nsisDir "makensis.exe")) {
+              Write-Host "Found $nsisDir; adding it to PATH."
+              $nsisDir | Out-File -FilePath $env:GITHUB_PATH -Append
+            } else {
+              Write-Host "Installing NSIS via Chocolatey..."
+              choco install nsis -y --no-progress
+              $nsisDir | Out-File -FilePath $env:GITHUB_PATH -Append
+            }
+          }
+
+      - name: Confirm makensis works
+        shell: pwsh
+        run: |
+          $makensis = Get-Command makensis -ErrorAction SilentlyContinue
+          if (-not $makensis) { $makensis = "${env:ProgramFiles(x86)}\NSIS\makensis.exe" }
+          & $makensis /VERSION
+
+      - name: Build the installer
+        shell: pwsh
+        run: |
+          .\packaging\windows\build-exe.ps1 -AppVersion "${{ steps.version.outputs.version }}"
+
+      - name: Show what was produced
+        shell: pwsh
+        run: Get-ChildItem dist | Format-Table Name, @{n='MB';e={[math]::Round($_.Length/1MB,1)}}
+
+      - name: Upload the installer as a build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: BettleClient-${{ steps.version.outputs.version }}-windows
+          path: dist/BettleClient-Setup-*.exe
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Publish a GitHub Release (tagged runs only)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/BettleClient-Setup-*.exe
+          name: Bettle Client ${{ steps.version.outputs.version }}
+          draft: false
+          generate_release_notes: true
+          body: |
+            ## Bettle Client ${{ steps.version.outputs.version }}
+
+            **Download `BettleClient-Setup-${{ steps.version.outputs.version }}.exe` below and run it.**
+            That is the only file you need — Java is bundled, so nothing else has to be installed.
+
+            It installs for your account only, so Windows never asks for administrator
+            permission. Bettle Client lands in your Start Menu (and on your desktop if you
+            tick the box). Sign in with your Microsoft account, pick a version, press PLAY.
+
+            Choosing the **Fabric + Bettle HUD** profile also installs Fabric Loader, the
+            Bettle HUD mod and Fabric API automatically on first launch.
+
+            ---
+            *Windows may show a SmartScreen warning because this installer is not code-signed.
+            Choose "More info" then "Run anyway", or sign it with your own certificate.*
